@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MtcResultRequest {
+public class MtcInsertRequest {
     private String acno;
     private String trxdt;
     private String curC;
