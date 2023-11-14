@@ -19,7 +19,7 @@ public class ResultConsumer {
     private static final Logger log = LoggerFactory.getLogger(ResultConsumer.class);
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final WebClient webClient;
-    @KafkaListener(topics = "mtc.ncr.result")
+    @KafkaListener(topics = "mtc.ncr.result", groupId = "amugurnahasam")
     public void consumeMessage(@Payload MtcResultRequest resReqInfo ,
                                @Header(name = KafkaHeaders.RECEIVED_KEY , required = false) String key ,
                                @Header(KafkaHeaders.RECEIVED_TOPIC ) String topic ,
