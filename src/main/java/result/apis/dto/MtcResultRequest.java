@@ -1,14 +1,14 @@
 package result.apis.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown=true)
+@ToString
 public class MtcResultRequest {
     private String acno;
     private String trxdt;
@@ -18,5 +18,5 @@ public class MtcResultRequest {
     private Double trxAmt;
     private Double nujkJan;
     private String errMsg;
-    private MtcPayRequest payInfo;
+    private MtcPayRequest payinfo;
 }

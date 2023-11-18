@@ -19,7 +19,7 @@ public class ResultConsumer {
     private static final Logger log = LoggerFactory.getLogger(ResultConsumer.class);
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final WebClient webClient;
-    @KafkaListener(topics = "mtc.ncr.result", groupId = "amugurnahasam")
+    @KafkaListener(topics = "mtc.ncr.result", groupId = "mtcResult")
     public void consumeMessage(@Payload MtcResultRequest resReqInfo ,
                                @Header(name = KafkaHeaders.RECEIVED_KEY , required = false) String key ,
                                @Header(KafkaHeaders.RECEIVED_TOPIC ) String topic ,
@@ -40,7 +40,8 @@ public class ResultConsumer {
         insertRequest.setErrMsg(resReqInfo.getErrMsg());
         insertRequest.setTrxAmt(resReqInfo.getTrxAmt());
         insertRequest.setUpmuG(resReqInfo.getUpmuG());
+        insertRequest.setTrxPlace(resReqInfo.getPayinfo().getTrxPlace());
 
-        kafkaTemplate.send("mtc.dbs.insertChlGojeong", "" , resReqInfo);
+        kafkaTemplate.send("mtc.dbs.insertChlGojeong", "" , insertRequest);
     }
 }

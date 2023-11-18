@@ -17,5 +17,6 @@ public class MtcInsertRequest {
     private String aprvSno;
     private Double trxAmt;
     private Double nujkJan;
+    private String trxPlace;
     private String errMsg;
 }
