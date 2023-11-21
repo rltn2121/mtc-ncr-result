@@ -10,6 +10,7 @@ import lombok.*;
 @JsonIgnoreProperties(ignoreUnknown=true)
 @ToString
 public class MtcResultRequest {
+//    private String gid;
     private String acno;
     private String trxdt;
     private String curC;

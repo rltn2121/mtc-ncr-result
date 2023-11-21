@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MtcInsertRequest {
+    private String gid;
     private String acno;
     private String trxdt;
     private String curC;
