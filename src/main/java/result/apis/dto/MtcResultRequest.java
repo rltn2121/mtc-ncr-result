@@ -1,16 +1,16 @@
-package result.dto;
+package result.apis.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MtcInsertRequest {
-    private String gid;
+@JsonIgnoreProperties(ignoreUnknown=true)
+@ToString
+public class MtcResultRequest {
+//    private String gid;
     private String acno;
     private String trxdt;
     private String curC;
@@ -18,6 +18,6 @@ public class MtcInsertRequest {
     private String aprvSno;
     private Double trxAmt;
     private Double nujkJan;
-    private String trxPlace;
     private String errMsg;
+    private MtcPayRequest payinfo;
 }

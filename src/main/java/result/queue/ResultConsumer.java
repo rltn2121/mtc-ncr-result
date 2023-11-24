@@ -41,6 +41,7 @@ public class ResultConsumer {
         * 거래가 실패면 보상 트랜잭션 큐에 넣고 거래내역 큐를 쌓는다.
         * */
         MtcInsertRequest insertRequest = new MtcInsertRequest();
+        insertRequest.setGid("resReqInfo.getGid()");
         insertRequest.setAcno(resReqInfo.getAcno());
         insertRequest.setTrxdt(resReqInfo.getTrxdt());
         insertRequest.setCurC(resReqInfo.getCurC());
