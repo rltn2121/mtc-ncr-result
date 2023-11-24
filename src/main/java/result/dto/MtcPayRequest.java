@@ -1,4 +1,4 @@
-package result.apis.dto;
+package result.dto;
 
 import lombok.Data;
 import lombok.Getter;
@@ -15,4 +15,5 @@ public class MtcPayRequest {
     private Double trxAmt ;
     private String trxDt;
     private String payAcser  ;
+    private String gid;
 }

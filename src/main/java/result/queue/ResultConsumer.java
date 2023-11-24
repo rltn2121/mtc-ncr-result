@@ -10,8 +10,9 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import result.apis.dto.MtcInsertRequest;
-import result.apis.dto.MtcResultRequest;
+import result.dto.MtcInsertRequest;
+import result.dto.MtcPayRequest;
+import result.dto.MtcResultRequest;
 
 @Component
 @RequiredArgsConstructor
@@ -27,6 +28,14 @@ public class ResultConsumer {
                                @Header(KafkaHeaders.OFFSET) long offset
     ) {
         log.info("$$$$$$$$$$$result 큐 읽는다 : {}" , resReqInfo.toString());
+
+        if(resReqInfo.getUpmuG()==3 /*충전성공*/
+                && resReqInfo.getPayinfo().getPayAcser()!="" /*결제 정보가 있으면*/)
+        {
+            // 결제 -> 충전 -> 충전성공한 경우 다시 결제 큐에 쌓아준다.
+            kafkaTemplate.send("mtc.ncr.payRequest", "PAY" , resReqInfo.getPayinfo());
+        }
+
         /*
         * 거래가 성공이면 바로 거래 큐에 쌓는다
         * 거래가 실패면 보상 트랜잭션 큐에 넣고 거래내역 큐를 쌓는다.
@@ -42,6 +51,6 @@ public class ResultConsumer {
         insertRequest.setUpmuG(resReqInfo.getUpmuG());
         insertRequest.setTrxPlace(resReqInfo.getPayinfo().getTrxPlace());
 
-        kafkaTemplate.send("mtc.dbs.insertChlGojeong", "" , insertRequest);
+        kafkaTemplate.send("mtc.dbs.insertChlGojeong", "PAY" , insertRequest);
     }
 }
