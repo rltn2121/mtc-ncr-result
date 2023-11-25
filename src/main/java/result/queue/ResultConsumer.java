@@ -29,8 +29,8 @@ public class ResultConsumer {
     ) {
         log.info("$$$$$$$$$$$result 큐 읽는다 : {}" , resReqInfo.toString());
 
-        if(resReqInfo.getUpmuG()==3 /*충전성공*/
-                && resReqInfo.getPayinfo().getPayAcser()!="" /*결제 정보가 있으면*/)
+        if(resReqInfo.getUpmuG()==2 /*충전성공*/
+                && "Y".equals(resReqInfo.getPayYn()) /*결제 정보가 있으면*/)
         {
             // 결제 -> 충전 -> 충전성공한 경우 다시 결제 큐에 쌓아준다.
             kafkaTemplate.send("mtc.ncr.payRequest", "PAY" , resReqInfo.getPayinfo());
